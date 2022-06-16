@@ -4,7 +4,10 @@ import {
   session,
   SessionFlavor,
 } from "https://deno.land/x/grammy@v1.8.3/mod.ts";
+import { freeStorage } from "https://deno.land/x/grammy_storages@v2.0.0/free/src/mod.ts";
+
 import { BOT_TOKEN } from "./constants.ts";
+
 type UserData = {
   firstName?: string;
   lastName?: string;
@@ -24,7 +27,7 @@ export const bot = new Bot<MyContext>(BOT_TOKEN);
 bot.use(
   session({
     initial: () => ({ users: {} }),
-    // storage: freeStorage<SessionData>(bot.token),
+    storage: freeStorage<SessionData>(bot.token),
   })
 );
 const groupBot = bot.filter(
